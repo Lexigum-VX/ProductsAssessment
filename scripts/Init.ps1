@@ -1,3 +1,6 @@
+param(
+    [switch]$RunTests
+)
 
 $ErrorActionPreference = "Stop"
 
@@ -36,7 +39,7 @@ if (-not (Test-Path $envFile)) {
     Copy-Item $envExample $envFile
 
     Write-Host "Created docker/.env"
-    Write-Host "Configure SQL_SA_PASSWORD and run Init.ps1 again."
+    Write-Host "Configure SQL_SA_PASSWORD in docker/.env and run Init.ps1 again."
     exit 0
 }
 
@@ -115,6 +118,16 @@ finally {
 
 if (-not $migrationSucceeded) {
     throw "Database initialization failed. Check SQL Server logs and configuration."
+}
+
+if ($RunTests) {
+    Write-Host "Running automated tests..."
+
+    dotnet test (Join-Path $root "Products.slnx")
+
+    if ($LASTEXITCODE -ne 0) {
+        throw "Automated tests failed."
+    }
 }
 
 Write-Host ""

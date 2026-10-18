@@ -122,39 +122,61 @@ Replace the placeholders with the actual repository URL and folder.
 
 ### Step 2 — Initialize the local environment
 
-Run from the solution root:
+From the solution root, execute:
 
 ```powershell
 .\scripts\Init.ps1
 ```
 
-On the first execution, the script creates `docker/.env` from `docker/.env.example`.
+The initialization script guides the user through the required setup process.
 
-Edit `docker/.env` and replace the placeholder with a strong password:
+On first execution, it creates `docker/.env` from `docker/.env.example` if the configuration file does not exist.
+
+Update `docker/.env` with a strong local SQL Server password:
 
 ```dotenv
 SQL_SA_PASSWORD=YOUR_STRONG_LOCAL_PASSWORD
 ```
 
-Do not commit this file to source control.
+This file contains local credentials and must not be committed to source control.
 
-### Step 3 — Run the initialization again
+Run the initialization script again:
 
 ```powershell
 .\scripts\Init.ps1
 ```
 
-The initialization process:
+The script:
 
-1. Checks the required local tools.
-2. Starts SQL Server using Docker Compose.
-3. Configures the database connection through .NET User Secrets.
-4. Applies EF Core database migrations.
-5. Executes the database seeding logic.
+1. Checks the required development tools.
+2. Starts SQL Server 2022 using Docker Compose.
+3. Configures the connection string using .NET User Secrets.
+4. Applies Entity Framework Core migrations.
+5. Initializes the sample product catalogue through EF Core seeding.
 
-The script can be executed again without intentionally deleting existing application data.
+The script can be executed multiple times without intentionally recreating the database or duplicating the initial product catalogue.
 
-If your PowerShell execution policy prevents locally authored scripts from running, review the system execution policy configuration. `RemoteSigned` is a common option for local development.
+### Step 3 — Validate the installation
+
+To initialize the environment and run the automated test suite:
+
+```powershell
+.\scripts\Init.ps1 -RunTests
+```
+
+This runs the NUnit unit and integration tests after applying database migrations.
+
+Integration tests require Docker because they use an isolated SQL Server Testcontainer.
+
+A failed test causes the initialization command to report a failure.
+
+Alternatively, execute the tests independently:
+
+```powershell
+dotnet test Products.slnx
+```
+
+If PowerShell prevents local scripts from running, review the execution policy.
 
 ### Step 4 — Start the API
 
@@ -206,6 +228,8 @@ The database contains:
 | CreatedAtUtc | DateTime | Creation timestamp |
 | UpdatedAtUtc | DateTime? | Last update timestamp |
 | RowVersion | byte[] | SQL Server concurrency token |
+
+Product prices use SQL Server decimal(18,2). Domain and API validation enforce non-negative values, the supported maximum and a precision of two decimal places.
 
 ### Database seeding
 
@@ -339,6 +363,17 @@ The tests do not require access to the developer's local database.
 ```powershell
 dotnet test Products.slnx
 ```
+
+### Test results
+
+The solution has been validated using:
+
+- 16 unit tests covering domain rules and application services.
+- 19 integration tests covering HTTP endpoints, persistence, input validation and concurrency.
+
+All 35 automated tests passed during the final local validation.
+
+Integration tests run against an isolated SQL Server container and do not modify the development database.
 
 ## 10. Architectural Decisions and Trade-offs
 
