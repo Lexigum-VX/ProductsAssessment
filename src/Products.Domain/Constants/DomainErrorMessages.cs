@@ -17,6 +17,7 @@ public static class DomainErrorMessages
     public static string MustBePositive(string fieldName) =>
         $"{fieldName} must be greater than zero.";
 
-    public static string InsufficientStock =>
-        "Insufficient stock.";
+    public const string InsufficientStock = "Insufficient stock.";
+
+    public const string InvalidRowVersion = "Invalid product version.";
 }
