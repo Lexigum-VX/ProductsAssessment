@@ -76,6 +76,12 @@ Assert-Success "Failed to start SQL Server."
 & (Join-Path $PSScriptRoot "SetConnectionString.ps1") `
     -Password $password
 
+Write-Host "Building solution..."
+
+dotnet build (Join-Path $root "Products.slnx") --nologo
+
+Assert-Success "Solution build failed. Fix compilation errors before initializing the database."
+
 
 # 6. Wait for database and apply migrations
 Write-Host "Waiting for SQL Server and applying migrations..."

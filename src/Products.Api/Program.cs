@@ -1,18 +1,13 @@
 
-using Microsoft.EntityFrameworkCore;
-using Products.Infrastructure.Persistence;
+using Products.Application.DependencyInjection;
+using Products.Infrastructure.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var connectionString =
-    builder.Configuration.GetConnectionString("ProductsDb")
-    ?? throw new InvalidOperationException(
-        "Connection string 'ProductsDb' is not configured.");
-
-builder.Services.AddDbContext<ProductDbContext>(options =>
-    options.UseSqlServer(connectionString));
-
 builder.Services.AddControllers();
+
+builder.Services.AddApplication(builder.Configuration);
+builder.Services.AddInfrastructure(builder.Configuration);
 
 var app = builder.Build();
 
