@@ -1,5 +1,15 @@
 <Solution>
+  <Folder Name="/docker/">
+    <File Path="docker/.env.example" />
+    <File Path="docker/compose.yaml" />
+  </Folder>
+  <Folder Name="/scripts/">
+    <File Path="scripts/Init.ps1" />
+    <File Path="scripts/setConnectionString.ps1" />
+  </Folder>
   <Folder Name="/src/">
+    <File Path=".gitignore" />
+    <File Path="README.md" />
     <Project Path="src/Products.Api/Products.Api.csproj" />
     <Project Path="src/Products.Application/Products.Application.csproj" />
     <Project Path="src/Products.Domain/Products.Domain.csproj" />

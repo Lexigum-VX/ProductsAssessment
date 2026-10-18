@@ -1,0 +1,15 @@
+
+services:
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: products-sqlserver
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_SA_PASSWORD: ${SQL_SA_PASSWORD:?Set SQL_SA_PASSWORD in .env}
+    ports:
+      - "127.0.0.1:14333:1433"
+    volumes:
+      - products_sql_data:/var/opt/mssql
+
+volumes:
+  products_sql_data:

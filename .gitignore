@@ -361,3 +361,19 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+
+# Local Docker configuration
+docker/.env
+
+# User-specific configuration
+**/appsettings.Local.json
+**/appsettings.Development.local.json
+
+# Build output
+**/bin/
+**/obj/
+
+# Visual Studio
+.vs/
+*.user
