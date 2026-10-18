@@ -1,8 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Products.Application.Interfaces;
 using Products.Infrastructure.Persistence;
 using Products.Infrastructure.Persistence.Seed;
+using Products.Infrastructure.Repositories;
 
 namespace Products.Infrastructure.DependencyInjection;
 
@@ -37,6 +39,8 @@ public static class DependencyInjection
                     cancellationToken);
             });
         });
+
+        services.AddScoped<IProductRepository, ProductRepository>();
 
         return services;
     }

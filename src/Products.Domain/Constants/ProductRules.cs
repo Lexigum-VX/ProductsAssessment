@@ -11,4 +11,5 @@ public static class ProductRules
     public const decimal MinimumPrice = 0m;
     public const int MinimumStock = 0;
     public const int MinimumStockAdjustment = 1;
+    public const int RowVersionLength = 8;
 }
