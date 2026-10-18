@@ -1,5 +1,4 @@
-﻿
-namespace Products.Application.Exceptions;
+﻿namespace Products.Application.Exceptions;
 
 public sealed class ProductConflictException(
     string message,

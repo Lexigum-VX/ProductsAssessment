@@ -1,5 +1,4 @@
-﻿
-using Products.Domain.Entities;
+﻿using Products.Domain.Entities;
 
 namespace Products.UnitTests.Domain;
 

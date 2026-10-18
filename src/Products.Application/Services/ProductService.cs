@@ -1,5 +1,4 @@
-﻿
-using Products.Application.DTOs.Products;
+﻿using Products.Application.DTOs.Products;
 using Products.Application.Exceptions;
 using Products.Application.Interfaces;
 using Products.Application.Mappings;

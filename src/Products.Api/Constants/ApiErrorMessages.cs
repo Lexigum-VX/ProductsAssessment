@@ -1,7 +1,4 @@
-﻿
-using Azure.Core;
-
-namespace Products.Api.Constants;
+﻿namespace Products.Api.Constants;
 
 public static class ApiErrorMessages
 {

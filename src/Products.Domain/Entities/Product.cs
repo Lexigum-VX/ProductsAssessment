@@ -1,5 +1,4 @@
-﻿
-using Products.Domain.Constants;
+﻿using Products.Domain.Constants;
 
 namespace Products.Domain.Entities;
 

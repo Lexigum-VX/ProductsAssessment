@@ -1,5 +1,4 @@
-﻿
-namespace Products.IntegrationTests.Constants;
+﻿namespace Products.IntegrationTests.Constants;
 
 public static class TestDatabaseSettings
 {

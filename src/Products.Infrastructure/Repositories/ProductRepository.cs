@@ -1,5 +1,4 @@
-﻿
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Products.Application.Exceptions;
 using Products.Application.Interfaces;
 using Products.Domain.Entities;

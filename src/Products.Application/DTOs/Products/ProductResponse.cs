@@ -1,5 +1,4 @@
-﻿
-namespace Products.Application.DTOs.Products;
+﻿namespace Products.Application.DTOs.Products;
 
 public sealed record ProductResponse(
     int Id,

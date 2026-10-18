@@ -1,6 +1,4 @@
-﻿
-using NSubstitute;
-using NUnit.Framework;
+﻿using NSubstitute;
 using Products.Application.Interfaces;
 using Products.Application.Services;
 using Products.Domain.Entities;

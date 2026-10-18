@@ -1,5 +1,4 @@
-﻿
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using Products.Domain.Constants;
 
 namespace Products.Application.DTOs.Products;

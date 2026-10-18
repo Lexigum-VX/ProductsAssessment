@@ -1,5 +1,4 @@
-﻿
-namespace Products.Application.Results;
+﻿namespace Products.Application.Results;
 
 public enum StockOperationResult
 {

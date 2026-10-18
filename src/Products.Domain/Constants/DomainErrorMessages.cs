@@ -1,7 +1,4 @@
-﻿
-using System.Reflection.Metadata.Ecma335;
-
-namespace Products.Domain.Constants;
+﻿namespace Products.Domain.Constants;
 
 public static class DomainErrorMessages
 {

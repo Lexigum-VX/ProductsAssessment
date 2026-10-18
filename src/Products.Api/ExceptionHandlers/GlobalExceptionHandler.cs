@@ -1,5 +1,4 @@
-﻿
-using Microsoft.AspNetCore.Diagnostics;
+﻿using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Products.Api.Constants;
 using Products.Application.Exceptions;

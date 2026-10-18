@@ -1,7 +1,4 @@
-﻿
-using NUnit.Framework;
-
-namespace Products.IntegrationTests.Infrastructure;
+﻿namespace Products.IntegrationTests.Infrastructure;
 
 [NonParallelizable]
 public abstract class IntegrationTestBase

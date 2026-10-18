@@ -1,5 +1,4 @@
-﻿
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Products.Domain.Entities;
 
 namespace Products.Infrastructure.Persistence.Seed;

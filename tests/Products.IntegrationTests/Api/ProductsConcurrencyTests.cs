@@ -1,7 +1,5 @@
-﻿
-using System.Net;
+﻿using System.Net;
 using System.Net.Http.Json;
-using NUnit.Framework;
 using Products.Application.DTOs.Products;
 using Products.Domain.Constants;
 using Products.IntegrationTests.Infrastructure;

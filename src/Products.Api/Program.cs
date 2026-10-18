@@ -1,4 +1,3 @@
-
 using Products.Api.ExceptionHandlers;
 using Products.Application.DependencyInjection;
 using Products.Infrastructure.DependencyInjection;

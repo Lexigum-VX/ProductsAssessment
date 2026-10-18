@@ -1,5 +1,4 @@
-﻿
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Products.Application.DTOs.Products;
 using Products.Application.Interfaces;
 using Products.Application.Results;
