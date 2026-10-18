@@ -16,7 +16,7 @@ public sealed class GlobalExceptionHandler(
     {
         var (statusCode, title) = exception switch
         {
-            ProductValidationException or ArgumentException =>
+            ProductValidationException =>
                 (StatusCodes.Status400BadRequest,
                     ApiErrorMessages.ValidationError),
 

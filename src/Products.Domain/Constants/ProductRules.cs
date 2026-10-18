@@ -12,4 +12,10 @@ public static class ProductRules
     public const int MinimumStock = 0;
     public const int MinimumStockAdjustment = 1;
     public const int RowVersionLength = 8;
+
+    public const decimal MaximumPrice = 9999999999999999.99m;
+    public const int PriceDecimalPlaces = 2;
+
+    public static bool HasValidPricePrecision(decimal price) =>
+        decimal.Round(price, PriceDecimalPlaces) == price;
 }

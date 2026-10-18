@@ -20,4 +20,13 @@ public static class DomainErrorMessages
     public const string InsufficientStock = "Insufficient stock.";
 
     public const string InvalidRowVersion = "Invalid product version.";
+
+    public static string MaximumValue(string fieldName, decimal maximum) =>
+    $"{fieldName} cannot exceed {maximum}.";
+
+    public static string MaximumDecimalPlaces(string fieldName, int decimalPlaces) =>
+        $"{fieldName} cannot have more than {decimalPlaces} decimal places.";
+
+    public static string InvalidStockRange =>
+        "Maximum stock must be greater than or equal to minimum stock.";
 }

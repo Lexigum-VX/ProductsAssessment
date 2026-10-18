@@ -68,6 +68,20 @@ public sealed class Product
                 nameof(price),
                 DomainErrorMessages.CannotBeNegative(nameof(price)));
 
+        if (price > ProductRules.MaximumPrice)
+            throw new ArgumentOutOfRangeException(
+                nameof(price),
+                DomainErrorMessages.MaximumValue(
+                    nameof(Price),
+                    ProductRules.MaximumPrice));
+
+        if (!ProductRules.HasValidPricePrecision(price))
+            throw new ArgumentException(
+                DomainErrorMessages.MaximumDecimalPlaces(
+                    nameof(Price),
+                    ProductRules.PriceDecimalPlaces),
+                nameof(price));
+
         Name = name;
         Description = description;
         Price = price;

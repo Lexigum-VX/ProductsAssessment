@@ -28,6 +28,24 @@ public sealed class UpdateProductRequest : IValidatableObject
                 [nameof(Price)]);
         }
 
+        if (Price > ProductRules.MaximumPrice)
+        {
+            yield return new ValidationResult(
+                DomainErrorMessages.MaximumValue(
+                    nameof(Price),
+                    ProductRules.MaximumPrice),
+                [nameof(Price)]);
+        }
+
+        if (!ProductRules.HasValidPricePrecision(Price))
+        {
+            yield return new ValidationResult(
+                DomainErrorMessages.MaximumDecimalPlaces(
+                    nameof(Price),
+                    ProductRules.PriceDecimalPlaces),
+                [nameof(Price)]);
+        }
+
         if (!IsValidRowVersion(RowVersion))
         {
             yield return new ValidationResult(

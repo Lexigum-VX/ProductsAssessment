@@ -31,21 +31,32 @@ public sealed class ProductService(
         return product?.ToResponse();
     }
 
+
     public async Task<ProductResponse> CreateAsync(
         CreateProductRequest request,
         CancellationToken cancellationToken = default)
     {
-        var product = new Product(
-            request.Name,
-            request.Description,
-            request.Price,
-            request.InitialStock);
+        Product product;
+
+        try
+        {
+            product = new Product(
+                request.Name,
+                request.Description,
+                request.Price,
+                request.InitialStock);
+        }
+        catch (ArgumentException ex)
+        {
+            throw new ProductValidationException(ex.Message, ex);
+        }
 
         await productRepository.AddAsync(
             product, cancellationToken);
 
         return product.ToResponse();
     }
+
 
     public async Task<ProductResponse?> UpdateAsync(
         int id,
@@ -60,10 +71,17 @@ public sealed class ProductService(
         if (product is null)
             return null;
 
-        product.UpdateDetails(
-            request.Name,
-            request.Description,
-            request.Price);
+        try
+        {
+            product.UpdateDetails(
+                request.Name,
+                request.Description,
+                request.Price);
+        }
+        catch (ArgumentException ex)
+        {
+            throw new ProductValidationException(ex.Message, ex);
+        }
 
         await productRepository.UpdateAsync(
             product,
@@ -72,6 +90,7 @@ public sealed class ProductService(
 
         return product.ToResponse();
     }
+
 
     public async Task<bool> DeleteAsync(
         int id,
@@ -114,7 +133,7 @@ public sealed class ProductService(
 
         if (max < min)
             throw new ProductValidationException(
-                "Maximum stock must be greater than or equal to minimum stock.");
+                DomainErrorMessages.InvalidStockRange);
 
         var products = await productRepository.GetByStockRangeAsync(
             min, max, cancellationToken);
@@ -134,14 +153,14 @@ public sealed class ProductService(
 
             if (bytes.Length != ProductRules.RowVersionLength)
                 throw new ProductValidationException(
-                    "Invalid product version.");
+                    DomainErrorMessages.InvalidRowVersion);
 
             return bytes;
         }
         catch (FormatException)
         {
             throw new ProductValidationException(
-                "Invalid product version.");
+                DomainErrorMessages.InvalidRowVersion);
         }
     }
 

@@ -27,11 +27,30 @@ public sealed class CreateProductRequest : IValidatableObject
                 [nameof(Price)]);
         }
 
+        if (Price > ProductRules.MaximumPrice)
+        {
+            yield return new ValidationResult(
+                DomainErrorMessages.MaximumValue(
+                    nameof(Price),
+                    ProductRules.MaximumPrice),
+                [nameof(Price)]);
+        }
+
+        if (!ProductRules.HasValidPricePrecision(Price))
+        {
+            yield return new ValidationResult(
+                DomainErrorMessages.MaximumDecimalPlaces(
+                    nameof(Price),
+                    ProductRules.PriceDecimalPlaces),
+                [nameof(Price)]);
+        }
+
         if (InitialStock < ProductRules.MinimumStock)
         {
             yield return new ValidationResult(
                 DomainErrorMessages.CannotBeNegative(nameof(InitialStock)),
                 [nameof(InitialStock)]);
         }
+
     }
 }

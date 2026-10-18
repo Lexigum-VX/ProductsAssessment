@@ -128,6 +128,7 @@ public sealed class ProductRepository(
                 cancellationToken);
     }
 
+
     public async Task UpdateAsync(
         Product product,
         byte[] expectedRowVersion,
@@ -137,20 +138,19 @@ public sealed class ProductRepository(
             .Property(p => p.RowVersion)
             .OriginalValue = expectedRowVersion;
 
+        dbContext.Entry(product)
+            .Property(p => p.UpdatedAtUtc)
+            .IsModified = true;
+
         try
         {
-            // Ensure that even an otherwise unchanged update
-            // checks the expected concurrency token.
-            dbContext.Entry(product)
-                .Property(p => p.UpdatedAtUtc)
-                .IsModified = true;
-
             await dbContext.SaveChangesAsync(cancellationToken);
         }
-        catch (DbUpdateConcurrencyException)
+        catch (DbUpdateConcurrencyException ex)
         {
             throw new ProductConflictException(
-                "The product was modified by another operation.");
+                "The product was modified by another operation.",
+                ex);
         }
     }
 }
